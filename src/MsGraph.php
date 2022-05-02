@@ -281,6 +281,11 @@ class MsGraph
                 return null;
             }
 
+            // Specific case for photo, shoudl not return json_encode
+            if (strstr(self::$baseUrl.$request,'photo')) {
+                return $response->getBody()->getContents();
+            }
+
             return json_decode($response->getBody()->getContents(), true);
 
         } catch (ClientException $e) {
